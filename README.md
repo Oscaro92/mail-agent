@@ -56,8 +56,17 @@ EMAIL_HOST_PASSWORD=PWD
 
 ## 🚀 Usage
 
-```bash
-python main.py
+```python
+from agent import AgentMail
+
+# create template (prompt)
+template = """Bla bla bla"""
+
+# init agent
+agentMail = AgentMail(template=template)
+
+# check mail
+data = agentMail.classifyMail("Body mail")
 ```
 
 The agent will:
@@ -95,4 +104,4 @@ mail-agent/
 
 ## 📝 License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License.
