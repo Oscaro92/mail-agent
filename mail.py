@@ -37,7 +37,7 @@ class Mail:
             return msg.get_payload(None, True)
 
 
-    def detectMail(self)->list:
+    def getMail(self, max_results=10)->list:
         """Get all mails
 
         Returns:
@@ -50,7 +50,10 @@ class Mail:
 
             _, data = self.imap.uid('search', None, 'ALL')
 
-            for num in data[0].split()[:3]:
+            # Get the last n messages
+            messages = data[0].split()
+            messages.reverse()
+            for num in messages[:max_results]:
                 # Check email is read or unread
                 _, msg_data = self.imap.uid('fetch', num, "(FLAGS)")
                 if msg_data and msg_data[0] is not None:
@@ -66,7 +69,7 @@ class Mail:
                 text = self.getText(email_message)
 
                 client.append({
-                    'from': email_message['from'],
+                    'from': email_message['from'].split('<')[1].replace('>', ''),
                     'subject': email_message['subject'],
                     'text': text
                 })
@@ -83,7 +86,7 @@ class Mail:
 
 
 
-    def sendEmail(self, to:str, subject:str, body:str, content_type:str)->str:
+    def sendMail(self, to:str, subject:str, body:str, content_type='plain')->str:
         """Send email
 
         Args:
@@ -104,7 +107,7 @@ class Mail:
 
             body = body
 
-            part = MIMEText(body, 'plain')
+            part = MIMEText(body, content_type)
 
             msg.attach(part)
 

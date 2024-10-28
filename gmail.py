@@ -13,7 +13,7 @@ from google.oauth2.service_account import Credentials
 class Gmail:
     def __init__(self):
         BASE_DIR = Path(__file__).resolve().parent
-        SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+        SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send']
         creds = os.path.join(BASE_DIR, 'credentials.json')
 
         credentials = Credentials.from_service_account_file(creds, scopes=SCOPES)
@@ -80,7 +80,7 @@ class Gmail:
             return []
 
 
-    def _get_body_from_parts(self, parts):
+    def _get_body_from_parts(self, parts:list):
         """Extracts the message body from the message parts."""
         text = ""
         for part in parts:
@@ -94,7 +94,7 @@ class Gmail:
         return text
 
 
-    def sendMail(self, to, subject, body, content_type="text/plain"):
+    def sendMail(self, to:str, subject:str, body:str, content_type="text/plain"):
         """Send email
 
         Args:

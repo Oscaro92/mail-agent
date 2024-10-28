@@ -14,16 +14,16 @@ def main():
     Depuis plusieurs jours ma porte est très compliquée à fermer de l'extérieur et aujourd'hui après 15 minutes à essayer de la fermer elle ne s'est toujours pas fermée, mon voisin m'a dit qu'il avait eu le même problème et avait donc fait changer la serrure.
     Est-il possible de faire venir un serrurier ?
     Merci d'avance pour votre réponse 
-    Maeva Bolle
+    Martin Bollen
     Classification: OUI (demande explicite d'intervention d'un serrurier)
 
     EXEMPLE 2:
-    Mail: Bonjour Warren, 
+    Mail: Bonjour, 
     Depuis mon arrivée, la peinture se dégrade, se décroche autour du chambranle dans les toilettes, la salle de bain, le mur adjacent dans le salon. 
     Je vous demande de bien vouloir faire une visite afin de corriger ce défaut, qui n'est pas de l'entretien mais de la responsabilité du propriétaire dans la mise en œuvre de l'application des peintures.
     Par ailleurs, il a été constaté depuis plusieurs hivers une humidité importante dans la chambre entrainant l'apparition de champignons sur l'ensemble des murs de la pièce, malgré une aération régulière et la mise en place de déshumidificateurs.
     Je reste à votre disposition pour convenir d'un rendez-vous sur place.
-    Charlotte KLAP
+    Charle CLAP
     Classification: OUI (demande de visite pour réparation peinture et problème d'humidité)
 
     Mail à analyser :
@@ -41,7 +41,7 @@ def main():
     gmail = Gmail()
 
     # get mails
-    emails = gmail.getMail(max_results=3)
+    emails = gmail.getMail(max_results=1)
 
     for email in emails:
         print(f"\nSujet: {email['subject']}")
@@ -53,10 +53,10 @@ def main():
         data = agentMail.classifyMail(email['body'])
 
         if data.is_intervention:
-            body = """Bonjour,\n\nNous avons bien reçu votre demande et nous vous informons que nous mettons tout en œuvre pour trouver une solution rapide. Afin de traiter votre demande au plus vite ou de dépêcher un professionnel qualifié si nécessaire, merci de bien vouloir compléter le formulaire suivant : https://sinistre.bci-immobilier.fr/ \n\nCordialement,\n\nVotre équipe de gestion"""
+            body = """Bonjour,\n\nNous avons bien reçu votre demande et nous vous informons que nous mettons tout en œuvre pour trouver une solution rapide. Afin de traiter votre demande au plus vite ou de dépêcher un professionnel qualifié si nécessaire, merci de bien vouloir compléter le formulaire suivant : https://sinitre.mon-site.fr/ \n\nCordialement,\n\nVotre équipe de gestion"""
 
             # send mail
-            agentMail.sendMail(to=email['sender'], subject="NOREPLY: SINISTRE", body=body)
+            gmail.sendMail(to=email['sender'], subject="NOREPLY: SINISTRE", body=body)
 
 
 if __name__ == '__main__':
