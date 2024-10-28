@@ -7,8 +7,8 @@ An intelligent agent that automatically analyzes incoming emails to identify and
 
 Clone the repository
 ```shell
-git clone https://github.com/<your-username>/mail-agent.git
-cd insurance-agent
+git clone https://github.com/Oscaro92/mail-agent.git
+cd mail-agent
 ```
 
 Create a virtual environment
